@@ -7,9 +7,9 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
+import { allRoutes } from "@/constants/Routes";
 import { useThemeColor } from "@/hooks/use-theme-color";
-import ThemedView from "@/presentation/shared/ThemedView";
-import ThemeText from "@/presentation/shared/ThemeText";
+import { Stack } from "expo-router";
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
@@ -27,11 +27,34 @@ export default function RootLayout() {
       style={{ backgroundColor: backgroundColor, flex: 1 }}
     >
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <ThemedView margin>
-          <ThemeText type="normal" className="mt-20">
-            Hola mundo
-          </ThemeText>
-        </ThemedView>
+        <Stack
+          screenOptions={{
+            headerShadowVisible: false,
+            contentStyle: {
+              backgroundColor: backgroundColor,
+            },
+            headerStyle: {
+              backgroundColor: backgroundColor,
+            },
+          }}
+        >
+          <Stack.Screen
+            name="index"
+            options={{
+              title: "",
+            }}
+          />
+
+          {allRoutes.map((route) => (
+            <Stack.Screen
+              key={route.name}
+              name={route.name}
+              options={{
+                title: route.title,
+              }}
+            />
+          ))}
+        </Stack>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
