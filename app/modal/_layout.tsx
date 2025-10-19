@@ -15,6 +15,12 @@ const ModalLayout = () => {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="modal-window-2"
+        options={{
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 };
